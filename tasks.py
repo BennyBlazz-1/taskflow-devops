@@ -19,8 +19,13 @@ def list_tasks(tasks):
 
 
 def complete_task(tasks, task_id):
-    # TODO: Implementar
-    pass
+    for task in tasks:
+        if task["id"] == task_id:
+            task["completed"] = True
+            print("Tarea completada")
+            return
+
+    print("Error: ID no encontrado")
 
 
 def delete_task(tasks, task_id):
