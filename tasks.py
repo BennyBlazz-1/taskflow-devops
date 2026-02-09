@@ -19,10 +19,30 @@ def list_tasks(tasks):
 
 
 def complete_task(tasks, task_id):
-    # TODO: Implementar
-    pass
+    for task in tasks:
+        if task["id"] == task_id:
+            task["completed"] = True
+            print("Tarea completada")
+            return
+
+    print("Error: ID no encontrado")
 
 
 def delete_task(tasks, task_id):
-    # TODO: Implementar
-    pass
+    try:
+        task_id = int(task_id)
+    except:
+        print("Error: ID inválido")
+        return
+
+    for task in tasks:
+        if task["id"] == task_id:
+            tasks.remove(task)
+
+            for i, t in enumerate(tasks):
+                t["id"] = i + 1
+
+            print("Tarea eliminada")
+            return
+
+    print("Error: ID no encontrado")
