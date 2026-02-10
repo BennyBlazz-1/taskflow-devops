@@ -1,4 +1,10 @@
 def add_task(tasks, title):
+    # Verificar si ya existe una tarea con el mismo título
+    for task in tasks:
+        if task["title"].lower() == title.lower():
+            print("Error: ya existe una tarea con ese título")
+            return
+
     task = {
         "id": len(tasks) + 1,
         "title": title,
@@ -19,6 +25,12 @@ def list_tasks(tasks):
 
 
 def complete_task(tasks, task_id):
+    try:
+        task_id = int(task_id)
+    except:
+        print("Error: ID inválido")
+        return
+
     for task in tasks:
         if task["id"] == task_id:
             if task["completed"]:
@@ -31,6 +43,22 @@ def complete_task(tasks, task_id):
     print("Error: tarea no encontrada")
 
 
+
 def delete_task(tasks, task_id):
-    # TODO: Implementar
-    pass
+    try:
+        task_id = int(task_id)
+    except:
+        print("Error: ID inválido")
+        return
+
+    for task in tasks:
+        if task["id"] == task_id:
+            tasks.remove(task)
+
+            for i, t in enumerate(tasks):
+                t["id"] = i + 1
+
+            print("Tarea eliminada")
+            return
+
+    print("Error: ID no encontrado")
