@@ -90,23 +90,23 @@ def delete_task(tasks, task_id):
     except:
         print("Error: ID inválido")
         return
->>>>>>> upstream/main
 
     for task in tasks:
         if task["id"] == task_id:
-            tasks.remove(task)
-<<<<<<< HEAD
-            print("🗑️ Tarea eliminada")
-            return
+            confirm = input(f"¿Seguro que deseas eliminar '{task['title']}'? (s/n): ")
 
-    print("❌ Error: No se encontró una tarea con ese ID")
-=======
+            if confirm.lower() != "s":
+                print("Eliminación cancelada")
+                return
+            tasks.remove(task)
 
             for i, t in enumerate(tasks):
                 t["id"] = i + 1
 
             print("Tarea eliminada")
             return
+
+    print("Error: ID no encontrado")
 
     print("Error: ID no encontrado")
 >>>>>>> upstream/main
