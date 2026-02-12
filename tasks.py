@@ -1,3 +1,12 @@
+# ==============================
+# CONSTANTES DE CLAVES (MEJORA DE LEGIBILIDAD)
+# ==============================
+
+KEY_ID = "id"
+KEY_TITLE = "title"
+KEY_COMPLETED = "completed"
+
+
 def add_task(tasks, title):
     """
     Agrega una nueva tarea a la lista de tareas.
@@ -15,17 +24,19 @@ def add_task(tasks, title):
     """
     try:
         # Verificar si ya existe una tarea con el mismo título
-        for task in tasks:
-            if task["title"].lower() == title.lower():
-                print("Error: ya existe una tarea con ese título")
-                return
+        title_lower = title.lower()
 
-        task = {
-            "id": len(tasks) + 1,
-            "title": title,
-            "completed": False
+        if any(task[KEY_TITLE].lower() == title_lower for task in tasks):
+            print("Error: ya existe una tarea con ese título")
+            return
+
+        new_task = {
+            KEY_ID: len(tasks) + 1,
+            KEY_TITLE: title,
+            KEY_COMPLETED: False
         }
-        tasks.append(task)
+
+        tasks.append(new_task)
         print("✅ Tarea agregada")
 
     except Exception as e:
@@ -52,8 +63,12 @@ def list_tasks(tasks):
             return
 
         for task in tasks:
-            status = "✔" if task["completed"] else "✘"
-            print(f'{task["id"]}. {task["title"]} [{status}]')
+            task_id = task[KEY_ID]
+            title = task[KEY_TITLE]
+            completed = task[KEY_COMPLETED]
+
+            status = "✔" if completed else "✘"
+            print(f"{task_id}. {title} [{status}]")
 
     except Exception as e:
         print("❌ Error al mostrar las tareas:", e)
@@ -103,8 +118,8 @@ def complete_task(tasks, task_id):
             return  # 🔁 No se rompe el menú
 
         for task in tasks:
-            if task["id"] == task_id:
-                task["completed"] = True
+            if task[KEY_ID] == task_id:
+                task[KEY_COMPLETED] = True
                 print("✅ Tarea marcada como completada")
                 return
 
