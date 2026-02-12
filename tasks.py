@@ -13,19 +13,23 @@ def add_task(tasks, title):
     Returns:
         None
     """
-    # Verificar si ya existe una tarea con el mismo título
-    for task in tasks:
-        if task["title"].lower() == title.lower():
-            print("Error: ya existe una tarea con ese título")
-            return
+    try:
+        # Verificar si ya existe una tarea con el mismo título
+        for task in tasks:
+            if task["title"].lower() == title.lower():
+                print("Error: ya existe una tarea con ese título")
+                return
 
-    task = {
-        "id": len(tasks) + 1,
-        "title": title,
-        "completed": False
-    }
-    tasks.append(task)
-    print("✅ Tarea agregada")
+        task = {
+            "id": len(tasks) + 1,
+            "title": title,
+            "completed": False
+        }
+        tasks.append(task)
+        print("✅ Tarea agregada")
+
+    except Exception as e:
+        print("❌ Error inesperado al agregar la tarea:", e)
 
 
 def list_tasks(tasks):
@@ -42,13 +46,17 @@ def list_tasks(tasks):
     Returns:
         None
     """
-    if not tasks:
-        print("No hay tareas")
-        return
+    try:
+        if not tasks:
+            print("No hay tareas")
+            return
 
-    for task in tasks:
-        status = "✔" if task["completed"] else "✘"
-        print(f'{task["id"]}. {task["title"]} [{status}]')
+        for task in tasks:
+            status = "✔" if task["completed"] else "✘"
+            print(f'{task["id"]}. {task["title"]} [{status}]')
+
+    except Exception as e:
+        print("❌ Error al mostrar las tareas:", e)
 
 
 #  FUNCIÓN DE VALIDACIÓN DE ID
@@ -89,17 +97,21 @@ def complete_task(tasks, task_id):
     Returns:
         None
     """
-    task_id = validar_task_id(task_id)
-    if task_id is None:
-        return  # 🔁 No se rompe el menú
+    try:
+        task_id = validar_task_id(task_id)
+        if task_id is None:
+            return  # 🔁 No se rompe el menú
 
-    for task in tasks:
-        if task["id"] == task_id:
-            task["completed"] = True
-            print("✅ Tarea marcada como completada")
-            return
+        for task in tasks:
+            if task["id"] == task_id:
+                task["completed"] = True
+                print("✅ Tarea marcada como completada")
+                return
 
-    print("❌ Error: No se encontró una tarea con ese ID")
+        print("❌ Error: No se encontró una tarea con ese ID")
+
+    except Exception as e:
+        print("❌ Error inesperado al completar la tarea:", e)
 
 
 def delete_task(tasks, task_id):
@@ -119,6 +131,10 @@ def delete_task(tasks, task_id):
     Returns:
         None
     """
-    task_id = validar_task_id(task_id)
-    if task_id is None:
-        return  # 🔁 No se rompe el menú
+    try:
+        task_id = validar_task_id(task_id)
+        if task_id is None:
+            return  # 🔁 No se rompe el menú
+
+    except Exception as e:
+        print("❌ Error inesperado al eliminar la tarea:", e)
